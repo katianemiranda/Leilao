@@ -25,7 +25,7 @@ func NewInternalServerError(message string) *InternalError {
 	}
 }
 
-func NewIBadRequestError(message string) *InternalError {
+func NewBadRequestError(message string) *InternalError {
 	return &InternalError{
 		Message: message,
 		Err:     errors.New("bad_request"),

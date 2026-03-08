@@ -1,6 +1,10 @@
 package resterr
 
-import "net/http"
+import (
+	"net/http"
+
+	"github.com/katianemiranda/leilao/internal/internal_error"
+)
 
 type RestErr struct {
 	Message string   `json:"message"`
@@ -18,12 +22,32 @@ func (r *RestErr) Error() string {
 	return r.Message
 }
 
-func NewBadRequestError(message string) *RestErr {
+func ConvertError(internalError *internal_error.InternalError) *RestErr {
+	switch internalError.Message {
+	case "not_found":
+		return NewNotFoundError(internalError.Error())
+	case "bad_request":
+		return NewBadRequestError(internalError.Error())
+	default:
+		return NewInternalServerError(internalError.Error())
+	}
+}
+
+func NewBadRequestValidationError(message string, causes ...Causes) *RestErr {
 	return &RestErr{
 		Message: message,
 		Err:     "bad_request",
 		Code:    http.StatusBadRequest,
-		Causes:  nil,
+		Causes:  causes,
+	}
+}
+
+func NewBadRequestError(message string, causes ...Causes) *RestErr {
+	return &RestErr{
+		Message: message,
+		Err:     "bad_request",
+		Code:    http.StatusBadRequest,
+		Causes:  causes,
 	}
 }
 

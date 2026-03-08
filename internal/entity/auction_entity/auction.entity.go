@@ -31,7 +31,7 @@ func (au *Auction) Validate() *internal_error.InternalError {
 		len(au.Category) == 0 ||
 		len(au.Description) == 0 ||
 		au.Condition == 0 {
-		return internal_error.NewIBadRequestError("Invalid Object")
+		return internal_error.NewBadRequestError("Invalid Object")
 	}
 	return nil
 }
