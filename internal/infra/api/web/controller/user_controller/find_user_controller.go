@@ -10,17 +10,17 @@ import (
 	"github.com/katianemiranda/leilao/internal/usecase/user_usecase"
 )
 
-type userController struct {
-	userUseCase user_usecase.UseruseCase
+type UserController struct {
+	userUseCase user_usecase.UserUseCaseInterface
 }
 
-func NewUserController(userUseCase user_usecase.UseruseCase) *userController {
-	return &userController{
+func NewUserController(userUseCase user_usecase.UserUseCaseInterface) *UserController {
+	return &UserController{
 		userUseCase: userUseCase,
 	}
 }
 
-func (u *userController) FindUserById(c *gin.Context) {
+func (u *UserController) FindUserById(c *gin.Context) {
 	userId := c.Param("userId")
 
 	//localhost:8080/user?userId=123456789

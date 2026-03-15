@@ -7,7 +7,17 @@ import (
 	"github.com/katianemiranda/leilao/internal/internal_error"
 )
 
-type UseruseCase struct {
+func NewUserUseCase(userRepository user_entity.UserRepositoryInterface) UserUseCaseInterface {
+	return &UserUseCase{
+		UserRepository: userRepository,
+	}
+}
+
+type UserUseCaseInterface interface {
+	FindUserById(ctx context.Context, id string) (*UserOutputDTO, *internal_error.InternalError)
+}
+
+type UserUseCase struct {
 	UserRepository user_entity.UserRepositoryInterface
 }
 
@@ -16,10 +26,7 @@ type UserOutputDTO struct {
 	Name string `json:"name"`
 }
 
-type UserUseCaseInterface interface {
-}
-
-func (u *UseruseCase) FindUserById(ctx context.Context, id string) (*UserOutputDTO, *internal_error.InternalError) {
+func (u *UserUseCase) FindUserById(ctx context.Context, id string) (*UserOutputDTO, *internal_error.InternalError) {
 	userEntity, err := u.UserRepository.FindUserById(ctx, id)
 	if err != nil {
 		return nil, err

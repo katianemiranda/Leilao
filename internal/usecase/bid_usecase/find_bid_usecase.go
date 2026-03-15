@@ -8,7 +8,7 @@ import (
 
 func (bu *BidUseCase) FindBidByAuctionId(
 	ctx context.Context, auctionId string) ([]BidOutputDTO, *internal_error.InternalError) {
-	bidList, err := bu.BidRepository.FindBidsByAuctionId(ctx, auctionId)
+	bidList, err := bu.BidRepository.FindBidByAuctionId(ctx, auctionId)
 	if err != nil {
 		return nil, err
 	}

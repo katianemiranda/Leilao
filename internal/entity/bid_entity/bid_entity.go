@@ -16,6 +16,18 @@ type Bid struct {
 	Timestamp time.Time
 }
 
+type BidEntityRepository interface {
+	CreateBid(
+		ctx context.Context,
+		bidEntities []Bid) *internal_error.InternalError
+
+	FindBidByAuctionId(
+		ctx context.Context, auctionId string) ([]Bid, *internal_error.InternalError)
+
+	FindWinningBidByAuctionId(
+		ctx context.Context, auctionId string) (*Bid, *internal_error.InternalError)
+}
+
 func CreateBid(userId string, auctionId string, amount float64) (*Bid, *internal_error.InternalError) {
 	bid := &Bid{
 		ID:        uuid.New().String(),
@@ -52,14 +64,4 @@ func (b *Bid) Validate() *internal_error.InternalError {
 	}
 
 	return nil
-}
-
-type BidEntityRepository interface {
-	CreateBid(ctx context.Context, bidEntities []Bid) *internal_error.InternalError
-
-	FindBidAndAuctionById(ctx context.Context, id string) (*Bid, *internal_error.InternalError)
-
-	FindBidsByAuctionId(ctx context.Context, auctionId string) ([]*Bid, *internal_error.InternalError)
-
-	FindWinningBidByAuctionId(ctx context.Context, auctionId string) (*Bid, *internal_error.InternalError)
 }

@@ -11,7 +11,7 @@ import (
 	"github.com/katianemiranda/leilao/internal/usecase/auction_usecase"
 )
 
-func (au *auctionController) FindAuctionById(c *gin.Context) {
+func (au *AuctionController) FindAuctionById(c *gin.Context) {
 	auctionId := c.Param("auctionId")
 
 	//localhost:8080/user?userId=123456789
@@ -36,7 +36,7 @@ func (au *auctionController) FindAuctionById(c *gin.Context) {
 
 }
 
-func (au *auctionController) FindAuctions(c *gin.Context) {
+func (au *AuctionController) FindAuctions(c *gin.Context) {
 	status := c.Query("status")
 	category := c.Query("category")
 	productName := c.Query("productName")
@@ -59,7 +59,7 @@ func (au *auctionController) FindAuctions(c *gin.Context) {
 
 }
 
-func (au *auctionController) FindWinningBidByAuctionId(c *gin.Context) {
+func (au *AuctionController) FindWinningBidByAuctionId(c *gin.Context) {
 	auctionId := c.Param("auctionId")
 
 	//localhost:8080/user?userId=123456789
