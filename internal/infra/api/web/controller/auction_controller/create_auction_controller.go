@@ -2,6 +2,7 @@ package auctioncontroller
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -23,6 +24,7 @@ func NewAuctionController(auctionUseCase auction_usecase.AuctionUseCaseInterface
 func (au *AuctionController) CreateAuction(c *gin.Context) {
 	var auctionInputDTO auction_usecase.AuctionInputDTO
 
+	fmt.Println("chamou funcao CreateAuction")
 	if err := c.ShouldBindJSON(&auctionInputDTO); err != nil {
 		restErr := validation.ValidateErr(err)
 
@@ -31,6 +33,8 @@ func (au *AuctionController) CreateAuction(c *gin.Context) {
 	}
 
 	err := au.auctionUseCase.CreateAuction(context.Background(), auctionInputDTO)
+	fmt.Println("depois de chamar usecase CreateAuction")
+	fmt.Println(err)
 	if err != nil {
 		restErr := resterr.ConvertError(err)
 		c.JSON(restErr.Code, restErr)

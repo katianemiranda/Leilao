@@ -1,0 +1,30 @@
+### Criar leilão
+POST http://localhost:8080/auctions
+Content-Type: application/json
+
+{
+  "product_name": "Notebook Dell V2",
+  "category": "Eletronicos",
+  "description": "Notebook Dell i7 16GB RAM",
+  "condition": 1
+}
+
+###
+
+GET http://localhost:8080/auctions 
+Content-Type: application/json
+
+### Listar leilões ativos
+GET http://localhost:8080/auctions?status=0
+Content-Type: application/json
+
+### Listar leilões por categoria
+GET http://localhost:8080/auctions?category=Eletronicos
+Content-Type: application/json
+
+
+### Listar leilões fechados
+GET http://localhost:8080/auctions?status=1
+Content-Type: application/json
+
+

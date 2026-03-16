@@ -2,6 +2,7 @@ package auction_entity
 
 import (
 	"context"
+	"fmt"
 	"time"
 
 	"github.com/google/uuid"
@@ -27,6 +28,7 @@ func CreateAuction(productName, category, description string, condition ProductC
 }
 
 func (au *Auction) Validate() *internal_error.InternalError {
+	fmt.Println(au.ProductName, au.Category, au.Description, au.Condition)
 	if len(au.ProductName) == 0 ||
 		len(au.Category) == 0 ||
 		len(au.Description) == 0 ||
